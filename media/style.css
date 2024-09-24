@@ -1,0 +1,160 @@
+:root {
+  --gray-l: #f2f2f2;
+  --gray-m: #393e46;
+  --gray-s: #222831;
+  --orange: #f96d00;
+
+  --cyan-l: #d5def5;
+  --cyan-m: #8594e4;
+  --cyan-s: #6643b5;
+  --cyan-xs: #430f58;
+
+  --global-font: "Roboto Mono", monospace;
+
+  /* Default message colors */
+  --assistant-message-bg: var(--gray-l);
+  --assistant-message-color: var(--gray-s);
+  --user-message-bg: var(--cyan-m);
+  --user-message-color: var(--gray-l);
+}
+
+body {
+  font-family: var(--global-font) !important;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+h2 {
+  text-align: center;
+  margin: 10px 0;
+  flex-shrink: 0;
+}
+
+/* Light Theme */
+body.vscode-light {
+  color: var(--gray-s);
+
+  --assistant-message-bg: var(--gray-l);
+  --assistant-message-color: var(--gray-s);
+  --user-message-bg: var(--cyan-l);
+  --user-message-color: var(--gray-s);
+}
+
+/* Dark Theme */
+body.vscode-dark {
+  color: var(--gray-l);
+
+  --assistant-message-bg: var(--gray-s);
+  --assistant-message-color: var(--gray-l);
+  --user-message-bg: var(--cyan-s);
+  --user-message-color: var(--gray-l);
+}
+
+/* High Contrast Theme */
+body.vscode-high-contrast {
+  color: var(--orange);
+
+  --assistant-message-bg: var(--orange);
+  --assistant-message-color: #000000;
+  --user-message-bg: var(--orange);
+  --user-message-color: #000000;
+}
+
+.content {
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+div {
+  font-weight: 600;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.promptInput {
+  flex: 1;
+  margin-right: 10px;
+  color: var(--vscode-input-foreground);
+  background-color: var(--vscode-input-background);
+  border: solid 1px var(--gray-l);
+  border-radius: 8px;
+  padding: 6px;
+  min-height: 40px;
+  max-height: 200px;
+  overflow-y: auto;
+  resize: none;
+}
+
+.promptInput:focus {
+  outline: none;
+}
+
+.sendButton {
+  padding: 6px 12px;
+  background-color: var(--vscode-button-background, #007acc);
+  color: var(--vscode-button-foreground, #ffffff);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sendButton:hover {
+  background-color: var(--vscode-button-hoverBackground, #005f9e);
+}
+
+@media screen and (max-width: 600px) {
+  .message {
+    max-width: 90%;
+  }
+}
+
+/* Chat container */
+.chat {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Common message */
+.message {
+  max-width: 80%;
+  padding: 10px 15px;
+  margin: 8px 0;
+  border-radius: 10px;
+  font-weight: 400;
+  line-height: 1.4;
+  word-wrap: break-word;
+  white-space: pre-line;
+}
+
+/* Assistant message */
+.message.assistant {
+  max-width: 95%;
+  align-self: flex-start;
+  background-color: var(--assistant-message-bg);
+  color: var(--assistant-message-color);
+  border-top-left-radius: 0;
+}
+
+/* User message */
+.message.user {
+  align-self: flex-end;
+  background-color: var(--user-message-bg);
+  color: var(--user-message-color);
+  border-top-right-radius: 0;
+}
+
+.message:first-child {
+  margin-top: 0;
+}

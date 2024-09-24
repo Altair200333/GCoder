@@ -1,0 +1,90 @@
+{
+  "name": "gcoder",
+  "displayName": "gcoder",
+  "description": "Enhance coding with AI",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onView:gcoderChatView",
+    "onCommand:gcoder.openChat",
+    "onWebviewPanel:gcoder"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Code Chat Settings",
+      "properties": {
+        "gcoder.apiKey": {
+          "type": "string",
+          "description": "Your OpenAI API Key 3",
+          "default": ""
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "gcoder.openChat",
+        "title": "GCoder: Open Code Chat"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "gcoder",
+          "title": "Gcoder",
+          "icon": "resources/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "gcoder": [
+        {
+          "type": "webview",
+          "id": "gcoderChatView",
+          "name": "Code Chat"
+        }
+      ]
+    }
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "This extension requires access to the workspace."
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.93.0",
+    "@typescript-eslint/eslint-plugin": "^8.3.0",
+    "@typescript-eslint/parser": "^8.3.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "copy-webpack-plugin": "^12.0.2",
+    "eslint": "^9.9.1",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.4",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "openai": "^4.63.0"
+  }
+}
