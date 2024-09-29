@@ -112,6 +112,19 @@ div {
   background-color: var(--vscode-button-hoverBackground, #005f9e);
 }
 
+.applyBtn {
+  padding: 6px 12px;
+  background-color: var(--vscode-button-background, #007acc);
+  color: var(--vscode-button-foreground, #ffffff);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.applyBtn:hover {
+  background-color: var(--vscode-button-hoverBackground, #005f9e);
+}
+
 @media screen and (max-width: 600px) {
   .message {
     max-width: 90%;

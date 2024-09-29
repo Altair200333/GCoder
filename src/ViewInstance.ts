@@ -4,6 +4,7 @@ import BaseEventHandler from "./eventHandlers/BaseEventHandler";
 import InfoEventHandler from "./eventHandlers/InfoEventHandler";
 import RunPromptHandler from "./eventHandlers/RunPromptHandler";
 import WebViewProvider from "./WebViewProvider";
+import ApplyCodeHandler from "./eventHandlers/ApplyCodeHandler";
 
 class GcoderChatViewInstance extends WebViewProvider {
   private messageHandlers: Partial<
@@ -20,6 +21,7 @@ class GcoderChatViewInstance extends WebViewProvider {
     this.messageHandlers = {
       [WebViewMessageType.INFO]: new InfoEventHandler(this.webviewView),
       [WebViewMessageType.RUN_PROMPT]: new RunPromptHandler(this.webviewView),
+      [WebViewMessageType.APPLY_CODE]: new ApplyCodeHandler(this.webviewView),
     };
   }
 

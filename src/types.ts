@@ -1,6 +1,7 @@
 export enum WebViewMessageType {
   INFO = "INFO",
   RUN_PROMPT = "RUN_PROMPT",
+  APPLY_CODE = "APPLY_CODE",
 }
 
 export type WebViewMessage = {
@@ -9,6 +10,10 @@ export type WebViewMessage = {
 };
 
 export type Opt<T> = T | undefined | null;
+
+export type Maybe<T> =
+  | { data: T; success: true }
+  | { error: string; success: false };
 
 export enum AIRole {
   SYSTEM = "system",
@@ -20,8 +25,4 @@ export type AIMessage = {
   content: string;
 };
 
-export type AIContentResponse = {
-  success: boolean;
-  error?: string;
-  content?: string;
-};
+export type AIContentResponse = Maybe<string>;

@@ -1,3 +1,5 @@
+import { CODE_BLOCK } from "./const";
+
 export const countLines = (value: string) => {
   if (!value) {
     return 0;
@@ -22,4 +24,18 @@ export const makeDeferred = <T = any>() => {
   });
 
   return d as Deferred<T>;
+};
+
+export const extractFromCodeBlock = (str: string) => {
+  if (!str) {
+    return "";
+  }
+  const start = str.indexOf(CODE_BLOCK);
+  const end = str.lastIndexOf(CODE_BLOCK);
+
+  if (start === -1 || end === -1 || end <= start) {
+    return "";
+  }
+
+  return str.substring(start + 3, end).trim();
 };

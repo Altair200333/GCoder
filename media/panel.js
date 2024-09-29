@@ -13,6 +13,7 @@ const vscode = tryGetVsCode(); // for testing outside of VS Code
 
 const INFO_MESSAGE = "INFO";
 const RUN_PROMPT = "RUN_PROMPT";
+const APPLY_CODE = "APPLY_CODE";
 
 // -- message events
 const SET_LOADING_EVENT = "SET_LOADING";
@@ -23,12 +24,27 @@ const PROMPT_INPUT = "promptInput";
 
 // CONSTANTS END --------------------
 
+// UTILS -----------------------------
+
+function uuidv4() {
+  return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (c) =>
+    (
+      +c ^
+      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (+c / 4)))
+    ).toString(16)
+  );
+}
+
+// UTILS END -------------------------
 /**
  * Global State
  */
 const STATE = {
   isLoading: false,
+  codeFragments: {},
 };
+
+console.log(uuidv4());
 
 const setIsLoading = (isLoading) => {
   STATE.isLoading = isLoading;
@@ -40,6 +56,7 @@ const setIsLoading = (isLoading) => {
   }
 };
 
+// messageElement.setAttribute("test", "test_v");
 /**
  * Add chat message
  * @param {*} content
@@ -47,15 +64,48 @@ const setIsLoading = (isLoading) => {
  */
 function addMessage(content, sender) {
   const messageElement = document.createElement("div");
-  // messageElement.setAttribute("test", "test_v");
-
   messageElement.classList.add("message", sender);
-  messageElement.innerHTML = content;
+
+  const renderer = new marked.Renderer();
+
+  renderer.code = function (args) {
+    const rawText = args.raw;
+    const codeBlock = marked.parse(rawText);
+    const sign = `&nbsp&lt/&gt`;
+
+    const codeUUID = uuidv4();
+    STATE.codeFragments[codeUUID] = rawText;
+
+    return `<div><button class="applyBtn" data-code="${codeUUID}">apply${sign}</button>${codeBlock}</div>`;
+  };
+
+  const htmlContent = marked.parse(content, { renderer });
+  messageElement.innerHTML = htmlContent;
 
   const messagesContainer = document.getElementById("messages");
   messagesContainer.appendChild(messageElement);
   messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+  addMessageButtonsListerners(messageElement);
 }
+
+const addMessageButtonsListerners = (container) => {
+  const applyButtons = container.querySelectorAll(".applyBtn");
+
+  applyButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const codeFramentId = button.getAttribute("data-code");
+      const rawText = STATE.codeFragments[codeFramentId];
+      if (!rawText) {
+        console.warn(`Code fragment ${codeFramentId} not found`);
+        return;
+      }
+
+      console.log("Button clicked, rawText:", rawText);
+      vscode.postMessage({ type: APPLY_CODE, message: rawText });
+    });
+  });
+};
 
 const handleAddMessage = (data) => {
   const content = data.content;
@@ -66,10 +116,8 @@ const handleAddMessage = (data) => {
 const init = () => {
   window.addEventListener("message", (event) => {
     const payload = event.data;
-    console.log("received event", event);
     const type = payload.type;
     const data = payload.message;
-    console.log("AA", type, data);
 
     switch (type) {
       case SET_LOADING_EVENT:
@@ -86,8 +134,6 @@ const init = () => {
     this.style.height = this.scrollHeight + "px";
   });
 };
-
-init();
 
 const onSendClicked = () => {
   if (STATE.isLoading) {
@@ -107,3 +153,5 @@ const onSendClicked = () => {
 
   vscode.postMessage({ type: RUN_PROMPT, message: value });
 };
+
+init();

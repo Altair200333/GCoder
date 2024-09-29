@@ -62,6 +62,7 @@ class RunPromptHandler extends BaseEventHandler {
         2. Divide question into several steps
         3. Answer user request step by step
         4. Validate the response, make sure it is correct.
+        5. Keep respons short
 
         Always respond with valid MD document. Annotate code blocks with language`,
       },
@@ -81,10 +82,10 @@ class RunPromptHandler extends BaseEventHandler {
     });
     this.sendMessage({
       type: "ADD_MESSAGE",
-      message: { role: "assistant", content: response.content },
+      message: { role: "assistant", content: response.data },
     });
 
-    this.showInfo(`Responded: ${response.content}`);
+    this.showInfo(`Responded: ${response.data}`);
   }
 }
 

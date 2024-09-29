@@ -28,7 +28,7 @@ class AIProvider {
       if (!response) {
         return { success: false, error: "Failed to generate respnse" };
       }
-      return { success: true, content: response };
+      return { success: true, data: response };
     } catch (err) {
       const message = (err as any)?.message;
       return { success: false, error: message || "Failed to create message" };
