@@ -6,18 +6,32 @@ import AIProvider from "../AI/AIProvider";
 import { getCurrentFile, replaceEditorText } from "../editor.utils";
 import { extractFromCodeBlock } from "../utils";
 
-const MODEL = "gpt-4o-mini";
+const MODEL = "gpt-4o";
+
+type ApplyCodeMessage = WebViewMessage & {
+  data: { codeBlockId: string; code: string };
+};
 
 class ApplyCodeHandler extends BaseEventHandler {
-  async handle(request: WebViewMessage): Promise<void> {
-    const { message } = request;
-    if (!message) {
+  async handle(request: ApplyCodeMessage): Promise<void> {
+    const { data } = request;
+    if (!data) {
       return;
     }
 
-    console.log("Called apply", message);
+    const { codeBlockId, code } = data;
 
-    await this.applyCode(message);
+    this.sendMessage({
+      type: "SET_APPLY_LOADING",
+      message: { isLoading: true, codeBlockId },
+    });
+
+    await this.applyCode(code);
+
+    this.sendMessage({
+      type: "SET_APPLY_LOADING",
+      message: { isLoading: false, codeBlockId },
+    });
 
     this.showInfo("Applied code!");
   }
