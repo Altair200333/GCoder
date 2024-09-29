@@ -1,71 +1,95 @@
-# gcoder README
+<!-- Based on: https://github.com/othneildrew/Best-README-Template/blob/main/README.md?plain=1 -->
 
-This is the README for your extension "gcoder". After writing up a brief description, we recommend including the following sections.
+<a id="readme-top"></a>
 
-## Features
+<!-- PROJECT SHIELDS -->
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-For example if there is an image subfolder under your extension project workspace:
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <h3 align="center">GCoder</h3>
 
-\!\[feature X\]\(images/feature-x.png\)
+  <p align="center">
+    VS code AI assistant
+    <br />
+    <a href="https://github.com/Altair200333/GCoder">View Demo</a>
+    ·
+    <a href="https://github.com/Altair200333/GCoder/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    ·
+    <a href="https://github.com/Altair200333/GCoder/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+  </p>
+</div>
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+<!-- ABOUT THE PROJECT -->
 
-## Requirements
+## About The Project
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+This is very minimalistic vs code extension aimed to replace most fun Cursor AI features, that requires only custom OpenAI **API key**
 
-## Extension Settings
+#### What it is, and will be?
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+- [x] Reference active file, ask questions about it
+- [x] Apply code block from response to local file (as github diff view)
+- [ ] Nice UI to reference file, N-files, current selection or nothing
+- [ ] Voice input (talking to LLM can be faster then typing)
+- [ ] Select model to use near text input
+- [ ] Store converstations and switch between them
 
-For example:
+#### Why did I want to make this extension?
 
-This extension contributes the following settings:
+- I just wanted to enjoy cursor editor features, by providing it a custom API key (which it supports), but soon found out that my requests went into very long queue because _"they are still processed by our backend"_ as they say it
+- Some features required their subscription and were limited in use (fast calls, apply code, code suggestions), but can totally be done by LLM that you pay for
+- Other extensions that allow to use LLM is side-panel, dont have this level of integration, like referencing a file, or "applying" code block to the file
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+<br/>
+<br/>
+<br/>
+<br/>
 
-## Known Issues
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
 
-## Release Notes
+### Screenshots
 
-Users appreciate release notes as you update your extension.
+<img src="imgs/demo1.jpg" alt="demo image" width="300" >
 
-### 1.0.0
 
-Initial release of ...
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+[contributors-shield]: https://img.shields.io/github/contributors/Altair200333/GCoder.svg?style=for-the-badge
+[contributors-url]: https://github.com/Altair200333/GCoder/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Altair200333/GCoder.svg?style=for-the-badge
+[forks-url]: https://github.com/Altair200333/GCoder/network/members
+[stars-shield]: https://img.shields.io/github/stars/Altair200333/GCoder.svg?style=for-the-badge
+[stars-url]: https://github.com/Altair200333/GCoder/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Altair200333/GCoder.svg?style=for-the-badge
+[issues-url]: https://github.com/Altair200333/GCoder/issues
+[license-shield]: https://img.shields.io/github/license/Altair200333/GCoder.svg?style=for-the-badge
+[license-url]: https://github.com/Altair200333/GCoder/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/ne0ck/
+[product-screenshot]: images/screenshot.png
+[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Next-url]: https://nextjs.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
+[Vue-url]: https://vuejs.org/
+[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
+[Angular-url]: https://angular.io/
+[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
+[Svelte-url]: https://svelte.dev/
+[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Laravel-url]: https://laravel.com
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://getbootstrap.com
+[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
+[JQuery-url]: https://jquery.com
