@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { Opt } from "./types";
 import GcoderChatViewInstance from "./ViewInstance";
+import FileManager from "./FileManager";
 
 class GcoderChatViewProvider implements vscode.WebviewViewProvider {
   public static readonly viewType = "gcoderChatView";
@@ -9,6 +10,7 @@ class GcoderChatViewProvider implements vscode.WebviewViewProvider {
 
   constructor(private readonly context: vscode.ExtensionContext) {
     this._extensionUri = context.extensionUri;
+    FileManager.setUri(this._extensionUri);
   }
 
   public async resolveWebviewView(
@@ -41,13 +43,12 @@ class GcoderChatViewProvider implements vscode.WebviewViewProvider {
     htmlFilePath: string,
     resourceFiles: string[]
   ): Promise<string> {
-    const htmlUri = vscode.Uri.joinPath(
-      this._extensionUri,
-      "media",
-      htmlFilePath
-    );
-    const bytes = await vscode.workspace.fs.readFile(htmlUri);
-    let html = new TextDecoder("utf-8").decode(bytes);
+    const htmlResponse = await FileManager.readFile(`media/${htmlFilePath}`);
+    if (!htmlResponse.success) {
+      return `<div>Failed to load file ${htmlResponse.error}</div>`;
+    }
+
+    let html = htmlResponse.data;
 
     const resourceFilesSet = new Set(resourceFiles);
 
@@ -59,9 +60,11 @@ class GcoderChatViewProvider implements vscode.WebviewViewProvider {
       resourceTagRegex,
       (match, tagName, attributes, srcOrHref, url) => {
         if (resourceFilesSet.has(url)) {
-          const resourceUri = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "media", url)
-          );
+          const fileUriResponse = FileManager.getUri(`media/${url}`);
+          if (!fileUriResponse.success) {
+            return match;
+          }
+          const resourceUri = webview.asWebviewUri(fileUriResponse.data);
 
           // Reconstruct the tag with the updated resource URI
           if (tagName === "script") {

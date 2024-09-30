@@ -55,11 +55,9 @@ This is very minimalistic vs code extension aimed to replace most fun Cursor AI 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 ### Screenshots
 
 <img src="imgs/demo1.jpg" alt="demo image" width="300" >
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

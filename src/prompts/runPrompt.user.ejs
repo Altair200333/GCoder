@@ -1,0 +1,10 @@
+Do not write input files name.
+
+Execute user instructions:
+<%- instruction %>
+
+<% if (inputFiles.length > 0) { %>
+    Input files:
+    <%- inputFiles.map(({name, content}) => `${name}:\n\n${content}`).join("\n-----------------------\n"); %>
+<% } %>
+            
