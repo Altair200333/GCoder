@@ -94,7 +94,7 @@ function addMessage(content, sender) {
     const codeUUID = uuidv4();
     STATE.codeFragments[codeUUID] = rawText;
 
-    return `<div><button class="applyBtn" data-code="${codeUUID}">${APPLY_BUTTON_TEXT}</button>${codeBlock}</div>`;
+    return `<div><button class="applyBtn" data-code="${codeUUID}">${APPLY_BUTTON_TEXT}</button><div data-type="code-segment">${codeBlock}</div></div>`;
   };
 
   const htmlContent = marked.parse(content, { renderer });
@@ -107,6 +107,10 @@ function addMessage(content, sender) {
   }
 
   addMessageButtonListeners(messageElement);
+
+  document.querySelectorAll(`[data-type="code-segment"]`).forEach((block) => {
+    hljs.highlightElement(block);
+  });
 }
 
 const onApplyCodeClicked = (button) => {
